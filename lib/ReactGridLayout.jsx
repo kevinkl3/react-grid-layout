@@ -39,7 +39,6 @@ import type {
 } from "./utils";
 
 import type { PositionParams } from "./calculateUtils";
-import type { Props } from "./ReactGridLayoutPropTypes";
 
 type State = {
   activeDrag: ?LayoutItem,
@@ -56,49 +55,7 @@ type State = {
   propsLayout?: Layout
 };
 
-export type Props = {
-  className: string,
-  style: Object,
-  width: number,
-  autoSize: boolean,
-  cols: number,
-  draggableCancel: string,
-  draggableHandle: string,
-  verticalCompact: boolean,
-  compactType: CompactType,
-  layout: Layout,
-  margin: [number, number],
-  containerPadding: [number, number] | null,
-  rowHeight: number,
-  maxRows: number,
-  isDraggable: boolean,
-  isResizable: boolean,
-  isDroppable: boolean,
-  preventCollision: boolean,
-  useCSSTransforms: boolean,
-  transformScale: number,
-  droppingItem: $Shape<LayoutItem>,
-
-  // Callbacks
-  onLayoutChange: Layout => void,
-  onDrag: EventCallback,
-  onDragStart: EventCallback,
-  onDragStop: EventCallback,
-  onResize: EventCallback,
-  onResizeStart: EventCallback,
-  onResizeStop: EventCallback,
-  // Updated to include dataTransfer object
-  onDrop: (itemPosition: {
-    x: number,
-    y: number,
-    w: number,
-    h: number,
-    e: Event,
-    // dataTransfer: Object
-  }) => void,
-  children: ReactChildrenArray<ReactElement<any>>
-};
-// End Types
+import type { Props } from "./ReactGridLayoutPropTypes";
 
 const compactType = (props: Props): CompactType => {
   const { verticalCompact, compactType } = props || {};
