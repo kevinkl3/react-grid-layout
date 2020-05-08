@@ -57,6 +57,9 @@ type State = {
 
 import type { Props } from "./ReactGridLayoutPropTypes";
 
+const compactType = (props: Props): CompactType => {
+  const { verticalCompact, compactType } = props || {};
+
 // End Types
 
 const layoutClassName = "react-grid-layout";
@@ -573,6 +576,9 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       isFirefox &&
       e.nativeEvent.target.className.indexOf(layoutClassName) === -1
     ) {
+      // without this Firefox will not allow drop if currently over
+      // droppingItem
+      e.preventDefault();
       return false;
     }
 
@@ -670,15 +676,24 @@ export default class ReactGridLayout extends React.Component<Props, State> {
   };
 
   onDrop = (e: Event) => {
+    // without this Firefox is not happy using any mimetype for dataTransfer
+    // if this causes issues the other option is to use a custom type instead
+    // see: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API#The_basics
+    e.preventDefault();
+
     const { droppingItem } = this.props;
     const { layout } = this.state;
     const { x, y, w, h } = layout.find(l => l.i === droppingItem.i) || {};
 
-    // reset gragEnter counter on drop
+    // reset dragEnter counter on drop
     this.dragEnterCounter = 0;
 
     this.removeDroppingPlaceholder();
 
+    // = = FIREFOX FIX = = 
+    // TODO: check if this can be changed
+    // const dataTransfer = e.dataTransfer;
+    // this.props.onDrop({ x, y, w, h, dataTransfer });
     this.props.onDrop({ x, y, w, h, e });
   };
 
