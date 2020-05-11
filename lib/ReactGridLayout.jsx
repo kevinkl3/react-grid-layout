@@ -13,7 +13,6 @@ import {
   moveElement,
   synchronizeLayoutWithChildren,
   getAllCollisions,
-  compactType,
   noop,
   fastRGLPropsEqual
 } from "./utils";
