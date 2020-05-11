@@ -59,7 +59,8 @@ import type { Props } from "./ReactGridLayoutPropTypes";
 
 const compactType = (props: Props): CompactType => {
   const { verticalCompact, compactType } = props || {};
-
+  return verticalCompact === false ? null : compactType;
+};
 // End Types
 
 const layoutClassName = "react-grid-layout";
